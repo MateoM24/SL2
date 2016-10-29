@@ -12,7 +12,7 @@ public class AllProductsHistoryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_All_Products_History);
+        setContentView(R.layout.activity_all_products_history);
         backToMain=(Button)findViewById(R.id.backToMain);
         final Intent intentBackToMain=new Intent(this,MainActivity.class);
         backToMain.setOnClickListener(new View.OnClickListener() {

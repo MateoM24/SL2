@@ -25,7 +25,7 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override  //gdy BD po raz pierwszy tworzona
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("CREATE TABLE "+TableShoppings+
-                "(_id INTEGER PRIMARY KEY AUTOINCREMENT, "+
+                "(_ID INTEGER PRIMARY KEY AUTOINCREMENT, "+
                 "NAME TEXT UNIQUE, "+
                 "DONE NUMERIC);");
     }
@@ -53,7 +53,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return success>0;
     }
     public Cursor GetAllShoppings(SQLiteDatabase db){
-        Cursor cursor=db.query(TableShoppings,new String[]{"NAME","DONE"},null,null,null
+        Cursor cursor=db.query(TableShoppings,new String[]{"_ID","NAME","DONE"},null,null,null
         ,null,null);
         return cursor;
     }

@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         buttonPList=(Button) findViewById(R.id.ButtonToProductList);
         final Intent intentToPList=new Intent(this,AllProductsHistoryActivity.class);
         //buttonPList.setOnClickListener(View v->startActivity(intentToPList));
-        // nie wiem jak zmienić ustawienia na java 8 zey lambdy działałay
+        // nie wiem jak zmienić ustawienia na java 8 zey lambdy działały
         buttonPList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
