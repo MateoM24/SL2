@@ -10,6 +10,7 @@
     <string name="font_color">Font color</string>
     <string name="option">Option</string>
     <string name="value">Value</string>
+    <string name="add_item">Add a product</string>
     <string-array name="font_sizes">
         <item>8</item>
         <item>10</item>

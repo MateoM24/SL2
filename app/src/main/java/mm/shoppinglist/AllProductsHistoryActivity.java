@@ -6,19 +6,19 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class ShoppingListActivity extends AppCompatActivity {
+public class AllProductsHistoryActivity extends AppCompatActivity {
     Button backToMain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shopping_list);
+        setContentView(R.layout.activity_All_Products_History);
         backToMain=(Button)findViewById(R.id.backToMain);
-        final Intent intentToMain=new Intent(this,MainActivity.class);
+        final Intent intentBackToMain=new Intent(this,MainActivity.class);
         backToMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(intentToMain);
+                startActivity(intentBackToMain);
             }
         });
     }

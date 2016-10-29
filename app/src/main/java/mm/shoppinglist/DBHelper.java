@@ -2,6 +2,7 @@ package mm.shoppinglist;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -37,6 +38,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public boolean InsertRowShoppingList(SQLiteDatabase db, String name){
         ContentValues values=new ContentValues();
         values.put("NAME",name);
+        values.put("DONE",false);
         long success=db.insert(TableShoppings,null,values);
         return success!=-1;
     }
@@ -49,5 +51,10 @@ public class DBHelper extends SQLiteOpenHelper {
     public boolean DeleteRowShoppingList(SQLiteDatabase db,String name){
         int success=db.delete(TableShoppings,"NAME = ?",new String[]{name});
         return success>0;
+    }
+    public Cursor GetAllShoppings(SQLiteDatabase db){
+        Cursor cursor=db.query(TableShoppings,new String[]{"NAME","DONE"},null,null,null
+        ,null,null);
+        return cursor;
     }
 }
