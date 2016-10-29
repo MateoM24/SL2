@@ -6,5 +6,5 @@
     <dimen name="activity_button_top_bottom">50dp</dimen>
     <dimen name="padding_button">30dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
-    <dimen name="text_size">20dp</dimen>
+    <dimen name="text_size">20sp</dimen>
 </resources>

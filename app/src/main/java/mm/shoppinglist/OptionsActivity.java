@@ -12,8 +12,10 @@ import android.widget.Toast;
 
 public class OptionsActivity extends AppCompatActivity {
     Button button_return;
-    Spinner spinnerFonts;
-    ArrayAdapter<CharSequence> adapter;
+    Spinner spinnerSize;
+    Spinner spinnerColor;
+    ArrayAdapter<CharSequence> adapter1;
+    ArrayAdapter<CharSequence> adapter2;
 
 
     @Override
@@ -28,11 +30,15 @@ public class OptionsActivity extends AppCompatActivity {
                 startActivity(backToMain);
             }
         });
-        spinnerFonts=(Spinner)findViewById(R.id.spinner);
-        adapter=ArrayAdapter.createFromResource(this,R.array.font_sizes,android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerFonts.setAdapter(adapter);
-        spinnerFonts.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinnerSize=(Spinner)findViewById(R.id.spinner1);
+        spinnerColor=(Spinner)findViewById(R.id.spinner2);
+        adapter1=ArrayAdapter.createFromResource(this,R.array.font_sizes,android.R.layout.simple_spinner_item);
+        adapter2=ArrayAdapter.createFromResource(this,R.array.font_colors,android.R.layout.simple_spinner_item);
+        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerSize.setAdapter(adapter1);
+        spinnerColor.setAdapter(adapter2);
+        spinnerSize.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 Toast.makeText(getBaseContext(),adapterView.getItemAtPosition(i)+"is seleted!!!! tu zmien obsluge.",Toast.LENGTH_SHORT).show();
@@ -40,7 +46,18 @@ public class OptionsActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
+                Toast.makeText(getBaseContext(),"nie nie zaznaczone",Toast.LENGTH_SHORT);
+            }
+        });
+        spinnerColor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(getBaseContext(),adapterView.getItemAtPosition(i)+"jest zaznaczony! zien obsluge!",Toast.LENGTH_LONG).show();
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                Toast.makeText(getBaseContext(),"nie nie zaznaczone",Toast.LENGTH_SHORT);
             }
         });
     }
