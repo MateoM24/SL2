@@ -10,15 +10,29 @@
         android:checked="false"
         android:id="@+id/toggleButton"
         android:padding="@dimen/padding_button"
+        android:focusableInTouchMode="false"
+        android:clickable="false"
+        android:focusable="false"
         />
-
-    <TextView
+    <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/productNameTV"
         android:padding="@dimen/padding_button"
-        android:textAlignment="center"
+        android:focusableInTouchMode="false"
+        android:clickable="false"
+        android:focusable="false"
+                />
+
+<!--
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/productNameTV"
+        ndroid:padding="@dimen/padding_button"
+        android:textAlignment="center"a
         />
+-->
 
 
     <!--
