@@ -11,6 +11,8 @@
     <string name="option">Option</string>
     <string name="value">Value</string>
     <string name="add_item">Add a product</string>
+    <string name="no_data">please add products to buy</string>
+
     <string-array name="font_sizes">
         <item>8</item>
         <item>10</item>

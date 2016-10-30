@@ -4,13 +4,19 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Paint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CursorAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
+
+import static android.graphics.Paint.STRIKE_THRU_TEXT_FLAG;
 
 public class ProductListActivity extends ListActivity {
     private SQLiteDatabase db;
@@ -36,9 +42,10 @@ public class ProductListActivity extends ListActivity {
         db=dbHelper.getWritableDatabase();
         cursor=dbHelper.GetAllShoppings(db);
         ListAdapter listAdapter=new SimpleCursorAdapter(this,
-                android.R.layout.simple_list_item_2,cursor, new String[]{"NAME","DONE"},
-                new int[]{android.R.id.text1,android.R.id.toggle},0);
+                R.layout.single_row,cursor, new String[]{"NAME"},
+                new int[]{R.id.productNameTV},0);
         list.setAdapter(listAdapter);
+        ///////kombinuj
     }
     @Override
     public void onDestroy(){
@@ -48,6 +55,16 @@ public class ProductListActivity extends ListActivity {
     }
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id){
+        super.onListItemClick(l,v,position,id);
+        System.out.println("niec si enie dziejeeeeeeeeeeeeeeeeeeeee");
+        Log.d("i co","nic");
+        TextView tv=(TextView)getListView().getItemAtPosition(position);
+        tv.getPaintFlags();
+        tv.setPaintFlags(STRIKE_THRU_TEXT_FLAG);
+
+        if ((tv.getPaintFlags() & Paint.STRIKE_THRU_TEXT_FLAG) > 0){
+            tv.setPaintFlags( tv.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
+        }else tv.setPaintFlags( tv.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
     }
 
 }
