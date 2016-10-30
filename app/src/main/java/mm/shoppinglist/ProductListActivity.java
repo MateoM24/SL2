@@ -7,6 +7,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -104,4 +107,33 @@ public class ProductListActivity extends ListActivity implements AdapterView.OnI
         }
 
     }
+    public Set<Button> getSelectedButtons(){
+        return buttonSet;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu (Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu__shopping_list, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.add_option:
+                Toast.makeText(getBaseContext(),"opcja add",Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.edit_option:
+                Toast.makeText(getBaseContext(),"opcja edit",Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.delete_option:
+                Toast.makeText(getBaseContext(),"opcja delete",Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 }
