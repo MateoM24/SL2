@@ -4,9 +4,7 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Paint;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -14,15 +12,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CursorAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -39,6 +33,7 @@ public class ProductListActivity extends ListActivity implements AdapterView.OnI
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_list);//to niestandardowe podejscie
+
         buttonSet=new HashSet<Button>();
         backToMain=(Button)findViewById(R.id.backToMain);
         final Intent intentToMain=new Intent(this,MainActivity.class);
@@ -50,7 +45,6 @@ public class ProductListActivity extends ListActivity implements AdapterView.OnI
         });
 
         ListView list=getListView();
-        //ListView list=(ListView)findViewById(R.id.list);
         DBHelper dbHelper=new DBHelper(this);
         db=dbHelper.getWritableDatabase();
         cursor=dbHelper.GetAllShoppings(db);
@@ -58,7 +52,6 @@ public class ProductListActivity extends ListActivity implements AdapterView.OnI
                 R.layout.single_row,cursor, new String[]{"NAME"},
                 new int[]{R.id.productNameTV},0);
         list.setAdapter(listAdapter);
-        ///////kombinuj
         list.setOnItemClickListener(this);
 
     }
@@ -68,22 +61,6 @@ public class ProductListActivity extends ListActivity implements AdapterView.OnI
         cursor.close();
         db.close();
     }
-//    @Override
-//    protected void onListItemClick(ListView l, View v, int position, long id){
-//        super.onListItemClick(l,v,position,id);
-//        String selectedItem = (String) getListView().getItemAtPosition(position);
-//        Toast.makeText(getBaseContext(),"cos",Toast.LENGTH_LONG).show();
-//
-//        System.out.println("niec si enie dziejeeeeeeeeeeeeeeeeeeeee");
-//        Log.d("i co","nic");
-//        TextView tv=(TextView)getListView().getItemAtPosition(position);
-//        tv.getPaintFlags();
-//        tv.setPaintFlags(STRIKE_THRU_TEXT_FLAG);
-//
-//        if ((tv.getPaintFlags() & Paint.STRIKE_THRU_TEXT_FLAG) > 0){
-//            tv.setPaintFlags( tv.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
-//        }else tv.setPaintFlags( tv.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-//    }
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -120,10 +97,11 @@ public class ProductListActivity extends ListActivity implements AdapterView.OnI
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
         switch (item.getItemId()) {
             case R.id.add_option:
-                Toast.makeText(getBaseContext(),"opcja add",Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getBaseContext(),"opcja add",Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(this,Popup.class);
+                startActivity(intent);
                 return true;
             case R.id.edit_option:
                 Toast.makeText(getBaseContext(),"opcja edit",Toast.LENGTH_SHORT).show();
@@ -136,4 +114,9 @@ public class ProductListActivity extends ListActivity implements AdapterView.OnI
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Toast.makeText(getBaseContext(),"!!!!!",Toast.LENGTH_SHORT).show();
+    }
 }

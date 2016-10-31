@@ -14,6 +14,8 @@
     <string name="no_data">please add products to buy</string>
     <string name="edit_selected">Edit product</string>
     <string name="delete_selected">Remove selected</string>
+    <string name="add_to_list_title">Write down a new product</string>
+    <string name="add_to_list">Add to my list</string>
 
     <string-array name="font_sizes">
         <item>8</item>
