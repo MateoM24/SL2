@@ -35,20 +35,26 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
-    public boolean InsertRowShoppingList(SQLiteDatabase db, String name){
+    public static boolean InsertRowShoppingList(SQLiteDatabase db, String name){
         ContentValues values=new ContentValues();
         values.put("NAME",name);
         values.put("DONE",false);
         long success=db.insert(TableShoppings,null,values);
         return success!=-1;
     }
-    public boolean UpdateRowShoppingList(SQLiteDatabase db,String OldName,String NewName){
+    public static boolean UpdateRowNameValue(SQLiteDatabase db,String OldName,String NewName){
         ContentValues values=new ContentValues();
         values.put("Name",NewName);
         int success = db.update(TableShoppings,values,"NAME = ?",new String[]{OldName});
         return success!=0;
     }
-    public boolean DeleteRowShoppingList(SQLiteDatabase db,String name){
+    public static boolean UpdateRowDoneValue(SQLiteDatabase db,String Name,boolean done){
+        ContentValues values=new ContentValues();
+        values.put("DONE",done);
+        int success = db.update(TableShoppings,values,"NAME = ?",new String[]{Name});
+        return success!=0;
+    }
+    public static boolean DeleteRowShoppingList(SQLiteDatabase db,String name){
         int success=db.delete(TableShoppings,"NAME = ?",new String[]{name});
         return success>0;
     }
