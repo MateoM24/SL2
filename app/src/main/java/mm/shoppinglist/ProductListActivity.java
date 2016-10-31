@@ -41,12 +41,13 @@ public class ProductListActivity extends ListActivity implements AdapterView.OnI
     CheckBox currentCB;
     Button currentButton;
     Map<CheckBox,Button> map;
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_list);//to niestandardowe podejscie
-        map=new HashMap<>(1,2);
+        //map=new HashMap<>(1,2);
        // buttonSet=new HashSet<Button>();don't need it
         dbHelper=new DBHelper(this);
         backToMain=(Button)findViewById(R.id.backToMain);
@@ -75,8 +76,8 @@ public class ProductListActivity extends ListActivity implements AdapterView.OnI
         currentCB=(CheckBox) linearLayout.getChildAt(0);
         currentCB.toggle();
             currentButton=(Button)linearLayout.getChildAt(1);
-            map.clear();
-            map.put(currentCB,currentButton);
+            //map.clear();
+            //map.put(currentCB,currentButton);
 
 
         }else{
@@ -85,8 +86,8 @@ public class ProductListActivity extends ListActivity implements AdapterView.OnI
             currentCB=(CheckBox) linearLayout.getChildAt(0);
             currentCB.toggle();
             currentButton=(Button)linearLayout.getChildAt(1);
-            map.clear();
-            map.put(currentCB,currentButton);
+            //map.clear();
+            //map.put(currentCB,currentButton);
             }
         }
 
@@ -112,15 +113,18 @@ public class ProductListActivity extends ListActivity implements AdapterView.OnI
                 currentTV.setPaintFlags(currentTV.getPaintFlags() ^ Paint.STRIKE_THRU_TEXT_FLAG);
                 return true;
             case R.id.add_option:
-                //Toast.makeText(getBaseContext(),"opcja add",Toast.LENGTH_SHORT).show();
-                Intent intent=new Intent(this,Popup.class);
+                intent=new Intent(this,Popup.class);
                 startActivity(intent);
                 return true;
             case R.id.edit_option:
-                Toast.makeText(getBaseContext(),"opcja edit",Toast.LENGTH_SHORT).show();
+                intent=new Intent(this,PopupRemove.class);
+                intent.putExtra("name",currentButton.getText().toString());
+                startActivity(intent);
                 return true;
             case R.id.delete_option:
-                Toast.makeText(getBaseContext(),"opcja delete",Toast.LENGTH_SHORT).show();
+                intent=new Intent(this,PopupRemove.class);
+                intent.putExtra("name",currentButton.getText().toString());
+                startActivity(intent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

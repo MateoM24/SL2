@@ -19,6 +19,11 @@
     <string name="bought">I have bought it!</string>
     <string name="not_bought">oops I haven\'t buy it yet!</string>
     <string name="added"> is added!</string>
+    <string name="please_add_something">It\'s time to put some products here!</string>
+    <string name="want_to_remove">Are you sure you want to remove this product from your shopping list?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="removed">Product removed</string>
 
     <string-array name="font_sizes">
         <item>8</item>

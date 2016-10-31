@@ -1,37 +1,50 @@
 package mm.shoppinglist;
 
 import android.app.Activity;
-
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
-public class Popup extends Activity{
+public class PopupRemove extends Activity{
     SQLiteDatabase db;
     DBHelper dbHelper;
-    EditText editText;
-    Button button;
+    TextView tv;
+    String product;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_popup);
+        setContentView(R.layout.activity_popup_remove);
         DisplayMetrics displayMetrics=new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int width= displayMetrics.widthPixels;
         int hight=displayMetrics.heightPixels;
         getWindow().setLayout((int)(width*.8),(int)(hight*0.4));
-        editText=(EditText)findViewById(R.id.edit_tv);
+
     }
-    public void add(View v){
+    public void remove(View v){
         dbHelper=new DBHelper(this);
-        String newProduct=editText.getText().toString();
-        DBHelper.InsertRowShoppingList(dbHelper.getWritableDatabase(),newProduct);
-        editText.setText(null);
-        Toast.makeText(getBaseContext(),newProduct+R.string.added,Toast.LENGTH_SHORT);
+        DBHelper.DeleteRowShoppingList(dbHelper.getWritableDatabase(),product);
+        Toast.makeText(getBaseContext(),R.string.removed,Toast.LENGTH_SHORT).show();
+        dismiss(v);
+    }
+    public void dismiss(View v){
+        finish();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Intent intent=getIntent();
+        product=intent.getStringExtra("name");
+        tv=(TextView)findViewById(R.id.TVProduct);
+        tv.setText(product);
     }
 }
