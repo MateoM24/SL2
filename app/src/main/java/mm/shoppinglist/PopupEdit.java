@@ -14,6 +14,8 @@ public class PopupEdit extends Activity{
     SQLiteDatabase db;
     DBHelper dbHelper;
     EditText editText;
+    Intent intent;
+    String oldName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,10 +28,17 @@ public class PopupEdit extends Activity{
         getWindow().setLayout((int)(width*.8),(int)(hight*0.4));
         editText=(EditText)findViewById(R.id.edit_tv);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        intent=getIntent();
+        oldName=intent.getStringExtra("name");
+        editText.setText(oldName);
+    }
+
     public void edit(View v){
         dbHelper=new DBHelper(this);
-        Intent intent=getIntent();
-        String oldName=intent.getStringExtra("name");
         String newName=editText.getText().toString();
         DBHelper.UpdateRowNameValue(dbHelper.getWritableDatabase(),oldName,newName);
         Toast.makeText(getBaseContext(),"Product edited",Toast.LENGTH_SHORT).show();

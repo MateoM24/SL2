@@ -151,11 +151,14 @@ public class ProductListActivity extends ListActivity implements AdapterView.OnI
                 new int[]{R.id.productNameTV},0);
         list.setAdapter(listAdapter);
         list.setOnItemClickListener(this);
-
-
+        ListView lv=(ListView)findViewById(android.R.id.list);
+        Log.d("ile rowów?: ",Integer.toString(lv.getChildCount()));
     }
     public void toAddPopup(View v){
         intent=new Intent(this,Popup.class);
         startActivity(intent);
+    }
+    public int getAllButtons(){
+        return linearLayout.getChildCount();
     }
 }

@@ -1,8 +1,10 @@
 package mm.shoppinglist;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,6 +18,7 @@ public class OptionsActivity extends AppCompatActivity {
     Spinner spinnerColor;
     ArrayAdapter<CharSequence> adapter1;
     ArrayAdapter<CharSequence> adapter2;
+    SharedPreferences sharedPreferences;
 
 
     @Override
@@ -41,6 +44,11 @@ public class OptionsActivity extends AppCompatActivity {
         spinnerSize.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                sharedPreferences=getSharedPreferences("prefs",MODE_PRIVATE);
+                Log.d("wartosc int: ",((String)adapterView.getItemAtPosition(i)));
+                int size=Integer.valueOf((String)adapterView.getItemAtPosition(i));
+                SharedPreferences.Editor editor=sharedPreferences.edit();
+                editor.putInt("size",size);
                 Toast.makeText(getBaseContext(),adapterView.getItemAtPosition(i)+"is seleted!!!! tu zmien obsluge.",Toast.LENGTH_SHORT).show();
             }
 
