@@ -1,37 +1,41 @@
 package mm.shoppinglist;
 
 import android.app.Activity;
-
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
-public class Popup extends Activity{
+public class PopupRemoveAll extends Activity{
     SQLiteDatabase db;
     DBHelper dbHelper;
-    EditText editText;
-    Button button;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_popup);
+        setContentView(R.layout.activity_popup_remove_all);
         DisplayMetrics displayMetrics=new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int width= displayMetrics.widthPixels;
         int hight=displayMetrics.heightPixels;
-        getWindow().setLayout((int)(width*.8),(int)(hight*0.4));
-        editText=(EditText)findViewById(R.id.edit_tv);
+        getWindow().setLayout((int)(width*.6),(int)(hight*0.4));
+
     }
-    public void add(View v){
+    public void removeAll(View v){
         dbHelper=new DBHelper(this);
-        String newProduct=editText.getText().toString();
-        DBHelper.InsertRowShoppingList(dbHelper.getWritableDatabase(),newProduct);
-        editText.setText(null);
-        Toast.makeText(getBaseContext(),(newProduct+" added"),Toast.LENGTH_SHORT).show();
+        DBHelper.DeleteWholeList(dbHelper.getWritableDatabase());
+        dismiss(v);
+    }
+    public void dismiss(View v){
+        finish();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 }

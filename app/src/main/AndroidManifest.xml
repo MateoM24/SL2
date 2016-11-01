@@ -23,13 +23,19 @@
         <activity
             android:name=".ProductListActivity"
             android:label="Shopping List"
-            android:theme="@android:style/Theme.Holo.Light.DarkActionBar"></activity>
+            android:theme="@android:style/Theme.Holo.Light.DarkActionBar"/>
         <activity android:name=".Popup"
             android:theme="@style/AppTheme.MyCustomTheme"
-            ></activity>
+            />
         <activity android:name=".PopupRemove"
             android:theme="@style/AppTheme.MyCustomTheme"
-            ></activity>
+            />
+        <activity android:name=".PopupRemoveAll"
+            android:theme="@style/AppTheme.MyCustomTheme"
+            />
+        <activity android:name=".PopupEdit"
+            android:theme="@style/AppTheme.MyCustomTheme"
+            />
     </application>
 
 </manifest>

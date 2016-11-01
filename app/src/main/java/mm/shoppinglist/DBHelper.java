@@ -58,6 +58,10 @@ public class DBHelper extends SQLiteOpenHelper {
         int success=db.delete(TableShoppings,"NAME = ?",new String[]{name});
         return success>0;
     }
+    public static boolean DeleteWholeList(SQLiteDatabase db){
+        int success=db.delete(TableShoppings,null,null);
+        return success>0;
+    }
     public Cursor GetAllShoppings(SQLiteDatabase db){
         Cursor cursor=db.query(TableShoppings,new String[]{"_ID","NAME","DONE"},null,null,null
         ,null,null);

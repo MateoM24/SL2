@@ -42,6 +42,7 @@ public class ProductListActivity extends ListActivity implements AdapterView.OnI
     Button currentButton;
     Map<CheckBox,Button> map;
     Intent intent;
+    boolean isSelected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +72,7 @@ public class ProductListActivity extends ListActivity implements AdapterView.OnI
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        isSelected=true;
         linearLayout= (LinearLayout)view;
         if(currentCB==null){
         currentCB=(CheckBox) linearLayout.getChildAt(0);
@@ -103,27 +105,33 @@ public class ProductListActivity extends ListActivity implements AdapterView.OnI
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.bought_button:
+                if (isSelected){
                 currentTV=(TextView)linearLayout.getChildAt(1);
                 DBHelper.UpdateRowDoneValue(dbHelper.getWritableDatabase(),currentTV.getText().toString(),true);
-                currentTV.setPaintFlags(currentTV.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                currentTV.setPaintFlags(currentTV.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);}
                 return true;
             case R.id.not_bought_button:
+                if (isSelected){
                 currentTV=(TextView)linearLayout.getChildAt(1);
                 DBHelper.UpdateRowDoneValue(dbHelper.getWritableDatabase(),currentTV.getText().toString(),false);
-                currentTV.setPaintFlags(currentTV.getPaintFlags() ^ Paint.STRIKE_THRU_TEXT_FLAG);
+                currentTV.setPaintFlags(currentTV.getPaintFlags() ^ Paint.STRIKE_THRU_TEXT_FLAG);}
                 return true;
             case R.id.add_option:
                 intent=new Intent(this,Popup.class);
                 startActivity(intent);
                 return true;
             case R.id.edit_option:
-                intent=new Intent(this,PopupRemove.class);
+                intent=new Intent(this,PopupEdit.class);
                 intent.putExtra("name",currentButton.getText().toString());
                 startActivity(intent);
                 return true;
             case R.id.delete_option:
                 intent=new Intent(this,PopupRemove.class);
                 intent.putExtra("name",currentButton.getText().toString());
+                startActivity(intent);
+                return true;
+            case R.id.delete_all_option:
+                intent=new Intent(this,PopupRemoveAll.class);
                 startActivity(intent);
                 return true;
             default:
@@ -145,5 +153,9 @@ public class ProductListActivity extends ListActivity implements AdapterView.OnI
         list.setOnItemClickListener(this);
 
 
+    }
+    public void toAddPopup(View v){
+        intent=new Intent(this,Popup.class);
+        startActivity(intent);
     }
 }

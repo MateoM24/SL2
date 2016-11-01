@@ -39,7 +39,7 @@
         android:text="@string/add_item"
         android:background="@color/colorPrimaryDark"
         android:textSize="@dimen/text_size"
-
+        android:onClick="toAddPopup"
         />
     <Button
         android:layout_width="match_parent"
