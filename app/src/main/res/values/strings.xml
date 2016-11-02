@@ -4,7 +4,7 @@
     <string name="button_main_to_PList">List of products</string>
     <string name="title_activity_product_list">ProductListActivity</string>
     <string name="button_return">Return to main menu</string>
-    <string name="button_options">Options</string>
+    <string name="button_options">List font options</string>
     <string name="font_size">Font size</string>
     <string name="size_prefs">size_prefs</string>
     <string name="font_color">Font color</string>
@@ -28,20 +28,16 @@
     <string name="remove_list_button">Remove whole list</string>
     <string name="edit_product">Edit product</string>
     <string name="ok">Ok</string>
+    <string name="accept_button">Change</string>
+    <string name="cancel_button">Cancell</string>
     <string-array name="font_sizes">
-        <item>8</item>
-        <item>10</item>
-        <item>12</item>
-        <item>14</item>
-        <item>16</item>
-        <item>18</item>
         <item>20</item>
+        <item>10</item>
+        <item>14</item>
+        <item>18</item>
         <item>22</item>
-        <item>24</item>
         <item>26</item>
-        <item>28</item>
         <item>30</item>
-        <item>32</item>
     </string-array>
     <string-array name="font_colors">
         <item>black</item>

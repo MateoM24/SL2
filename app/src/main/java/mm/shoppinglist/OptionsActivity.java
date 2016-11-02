@@ -2,6 +2,7 @@ package mm.shoppinglist;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,6 +20,9 @@ public class OptionsActivity extends AppCompatActivity {
     ArrayAdapter<CharSequence> adapter1;
     ArrayAdapter<CharSequence> adapter2;
     SharedPreferences sharedPreferences;
+    int size;
+    String color;
+    int c;
 
 
     @Override
@@ -44,29 +48,66 @@ public class OptionsActivity extends AppCompatActivity {
         spinnerSize.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                sharedPreferences=getSharedPreferences("prefs",MODE_PRIVATE);
                 Log.d("wartosc int: ",((String)adapterView.getItemAtPosition(i)));
-                int size=Integer.valueOf((String)adapterView.getItemAtPosition(i));
-                SharedPreferences.Editor editor=sharedPreferences.edit();
-                editor.putInt("size",size);
-                Toast.makeText(getBaseContext(),adapterView.getItemAtPosition(i)+"is seleted!!!! tu zmien obsluge.",Toast.LENGTH_SHORT).show();
+                size=Integer.valueOf((String)adapterView.getItemAtPosition(i));
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                Toast.makeText(getBaseContext(),"nie nie zaznaczone",Toast.LENGTH_SHORT);
             }
         });
         spinnerColor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getBaseContext(),adapterView.getItemAtPosition(i)+"jest zaznaczony! zien obsluge!",Toast.LENGTH_LONG).show();
+                color=(String)adapterView.getItemAtPosition(i);
+                Log.d("onclick kolor ",color);
+
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                Toast.makeText(getBaseContext(),"nie nie zaznaczone",Toast.LENGTH_SHORT);
             }
         });
+    }
+        public void accept(View v){
+            sharedPreferences=getSharedPreferences("prefs",MODE_PRIVATE);
+            SharedPreferences.Editor editor=sharedPreferences.edit();
+            editor.putInt("size",size);
+            switch(color){
+                case "black" : c= Color.BLACK;
+                    break;
+                case "red" : c=Color.RED;
+                    break;
+                case "blue" : c=Color.BLUE;
+                   break;
+
+            }
+
+            editor.putInt("color",c);
+            editor.apply();
+            editor.commit();
+            finish();
+        }
+        public void cancel(View v){finish();}
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        sharedPreferences=getSharedPreferences("prefs",MODE_PRIVATE);
+        int i=sharedPreferences.getInt("size",20);
+        adapter1.getPosition(String.valueOf(i));
+        int s=sharedPreferences.getInt("color",Color.BLACK);
+        String posS;
+        switch (s){
+            case Color.BLACK: posS="black";
+                break;
+            case Color.RED: posS="red";
+                break;
+            case Color.BLUE: posS="blue";
+                break;
+            default: posS="black";
+        }
+        adapter2.getPosition(posS);
+        Log.d("resume,kolor: ",posS);
     }
 }

@@ -1,16 +1,21 @@
 package mm.shoppinglist;
 
 import android.app.ListActivity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -146,14 +151,66 @@ public class ProductListActivity extends ListActivity implements AdapterView.OnI
         DBHelper dbHelper=new DBHelper(this);
         db=dbHelper.getWritableDatabase();
         cursor=dbHelper.GetAllShoppings(db);
-        ListAdapter listAdapter=new SimpleCursorAdapter(this,
+
+        ListAdapter listAdapter=new MySimpleCursorAdapter2(this,
                 R.layout.single_row,cursor, new String[]{"NAME"},
                 new int[]{R.id.productNameTV},0);
+
+//        ListAdapter listAdapter=new SimpleCursorAdapter(this,
+//                R.layout.single_row,cursor, new String[]{"NAME"},
+//                new int[]{R.id.productNameTV},0);
         list.setAdapter(listAdapter);
         list.setOnItemClickListener(this);
-        ListView lv=(ListView)findViewById(android.R.id.list);
-        Log.d("ile rowów?: ",Integer.toString(lv.getChildCount()));
     }
+    //================================================================================
+    public class MySimpleCursorAdapter2 extends android.support.v4.widget.SimpleCursorAdapter {
+        SharedPreferences sharedPreferences;
+
+        public MySimpleCursorAdapter2(Context context, int layout, Cursor c, String[] from, int[] to, int flags) {
+            super(context, layout, c, from, to, flags);
+
+        }
+
+        @Override
+        public void setViewText(TextView v, String text) {
+            super.setViewText(v, text);
+        }
+
+        @Override
+        public View newView(Context context, Cursor cursor, ViewGroup parent) {
+            Button b=(Button) findViewById(R.id.productNameTV);
+                    b.setTextSize(9);
+            Log.d("jak sie nazywa: ",Float.toString(b.getTextSize()));
+            return super.newView(context, cursor, parent);
+        }
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            if(convertView == null)
+            {
+                LayoutInflater vi = (LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                convertView = vi.inflate(R.layout.single_row, null);
+            }
+            TextView tv = (TextView)convertView.findViewById(R.id.productNameTV);
+            sharedPreferences=getSharedPreferences("prefs",MODE_PRIVATE);
+            tv.setTextSize(sharedPreferences.getInt("size",20));
+            //return convertView;
+            return super.getView(position, convertView, parent);
+        }
+        @Override
+        public void bindView(View view, Context context, Cursor cursor) {
+            super.bindView(view, context, cursor);
+            SharedPreferences sharedPreferences= mContext.getSharedPreferences("prefs",MODE_PRIVATE);
+            if (view instanceof Button){
+                int i=sharedPreferences.getInt("size",6);
+                ((Button)view).setTextSize((float)i);
+                int c=sharedPreferences.getInt("color", Color.BLACK);
+                ((Button)view).setTextColor(c);
+                Log.d("sh prefs val:",Integer.toString(i));
+            }
+
+        }
+    }
+    //=====================================================
     public void toAddPopup(View v){
         intent=new Intent(this,Popup.class);
         startActivity(intent);

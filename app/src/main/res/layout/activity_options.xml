@@ -15,7 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        >
+        android:id="@+id/gridLayout">
 
         <TextView
             android:text="@string/option"
@@ -75,6 +75,32 @@
 
     </GridLayout>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/acceptButton"
+        android:text="@string/accept_button"
+        android:layout_alignParentRight="true"
+        android:layout_above="@+id/return_button"
+        android:background="@color/colorPrimaryDark"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="15dp"
+        android:padding="30dp"
+        android:onClick="accept"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/cancellButton"
+        android:text="@string/cancel_button"
+        android:layout_alignParentLeft="true"
+        android:layout_above="@+id/return_button"
+        android:background="@color/colorPrimaryDark"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="15dp"
+        android:padding="30dp"
+        android:onClick="cancel"
+        />
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
