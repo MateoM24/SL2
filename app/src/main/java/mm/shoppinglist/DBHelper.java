@@ -22,18 +22,19 @@ public class DBHelper extends SQLiteOpenHelper {
         super(context,DB_NAME,null,DB_VERSION);
     }
 
-    @Override  //gdy BD po raz pierwszy tworzona
+    @Override  //gdy BD po raz pierwszy jest tworzona
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("CREATE TABLE "+TableShoppings+
                 "(_ID INTEGER PRIMARY KEY AUTOINCREMENT, "+
                 "NAME TEXT UNIQUE, "+
-                "DONE NUMERIC);");
+                "DONE INTEGER);");
     }
+    //"DONE NUMERIC);");
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-
     }
+
 
     public static boolean InsertRowShoppingList(SQLiteDatabase db, String name){
         ContentValues values=new ContentValues();
@@ -65,6 +66,11 @@ public class DBHelper extends SQLiteOpenHelper {
     public Cursor GetAllShoppings(SQLiteDatabase db){
         Cursor cursor=db.query(TableShoppings,new String[]{"_ID","NAME","DONE"},null,null,null
         ,null,null);
+        return cursor;
+    }
+    public static Cursor getDoneValue(SQLiteDatabase db, String name){
+        Cursor cursor=db.query(TableShoppings,new String[]{"DONE"},"NAME = ?",new String[]{name},null,null,null);
+        //int i=cursor.getInt(cursor.getColumnIndex("DONE"));
         return cursor;
     }
 }

@@ -96,6 +96,7 @@ public class OptionsActivity extends AppCompatActivity {
         sharedPreferences=getSharedPreferences("prefs",MODE_PRIVATE);
         int i=sharedPreferences.getInt("size",20);
         adapter1.getPosition(String.valueOf(i));
+        Log.d("size onResume ",String.valueOf(i));
         int s=sharedPreferences.getInt("color",Color.BLACK);
         String posS;
         switch (s){
@@ -107,6 +108,7 @@ public class OptionsActivity extends AppCompatActivity {
                 break;
             default: posS="black";
         }
+        Log.d("kolor posS onResume ",posS);
         adapter2.getPosition(posS);
         Log.d("resume,kolor: ",posS);
     }

@@ -45,7 +45,6 @@ public class ProductListActivity extends ListActivity implements AdapterView.OnI
     CheckBox lastCB;
     CheckBox currentCB;
     Button currentButton;
-    Map<CheckBox,Button> map;
     Intent intent;
     boolean isSelected;
 
@@ -110,16 +109,22 @@ public class ProductListActivity extends ListActivity implements AdapterView.OnI
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.bought_button:
-                if (isSelected){
+                if (isSelected)
                 currentTV=(TextView)linearLayout.getChildAt(1);
                 DBHelper.UpdateRowDoneValue(dbHelper.getWritableDatabase(),currentTV.getText().toString(),true);
-                currentTV.setPaintFlags(currentTV.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);}
+                currentTV.setPaintFlags(currentTV.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                db=dbHelper.getWritableDatabase();
+                DBHelper.UpdateRowDoneValue(db,currentTV.getText().toString(),true);
+                db.close();
                 return true;
             case R.id.not_bought_button:
-                if (isSelected){
+                if (isSelected)
                 currentTV=(TextView)linearLayout.getChildAt(1);
                 DBHelper.UpdateRowDoneValue(dbHelper.getWritableDatabase(),currentTV.getText().toString(),false);
-                currentTV.setPaintFlags(currentTV.getPaintFlags() ^ Paint.STRIKE_THRU_TEXT_FLAG);}
+                currentTV.setPaintFlags(currentTV.getPaintFlags() ^ Paint.STRIKE_THRU_TEXT_FLAG);
+                db=dbHelper.getWritableDatabase();
+                DBHelper.UpdateRowDoneValue(db,currentTV.getText().toString(),false);
+                db.close();
                 return true;
             case R.id.add_option:
                 intent=new Intent(this,Popup.class);
@@ -180,7 +185,6 @@ public class ProductListActivity extends ListActivity implements AdapterView.OnI
         public View newView(Context context, Cursor cursor, ViewGroup parent) {
             Button b=(Button) findViewById(R.id.productNameTV);
                     b.setTextSize(9);
-            Log.d("jak sie nazywa: ",Float.toString(b.getTextSize()));
             return super.newView(context, cursor, parent);
         }
         @Override
@@ -193,20 +197,42 @@ public class ProductListActivity extends ListActivity implements AdapterView.OnI
             TextView tv = (TextView)convertView.findViewById(R.id.productNameTV);
             sharedPreferences=getSharedPreferences("prefs",MODE_PRIVATE);
             tv.setTextSize(sharedPreferences.getInt("size",20));
+            tv.setTextColor(sharedPreferences.getInt("color",Color.BLACK));
+            //jesli w db jest done tru to przekreśl
+            String currViewText=tv.getText().toString();
+            Cursor cursorI=DBHelper.getDoneValue(dbHelper.getReadableDatabase(),currViewText);
+           // Log.d("slowo: ",currViewText);
+            //Log.d("cursor pusty? ",String.valueOf(cursorI==null));
+            //Log.d("cursor movefirst",String.valueOf(cursorI.moveToFirst()));
+            //Log.d("jaka wart donejest?: ",String.valueOf(cursorI.getType(0)));
+           //Log.d("ile rows: ",String.valueOf(cursorI.getCount()));
+            if(cursorI!=null && cursorI.moveToFirst()) {
+                int i = cursorI.getInt(0);
+                if (i == 1) {
+                    Log.d("done? ", currViewText + " tak");
+                    tv.setPaintFlags(tv.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                }else{
+                    Log.d("done? ", currViewText + " nie"+String.valueOf(i));
+                    tv.setPaintFlags(tv.getPaintFlags() ^ Paint.STRIKE_THRU_TEXT_FLAG);
+                }
+            }
+                //if (cursorI != null&& cursorI.moveToFirst())
+            //Log.d("jaka wartosc DONE",String.valueOf(cursorI.getType(0)));
             //return convertView;
             return super.getView(position, convertView, parent);
+
         }
         @Override
         public void bindView(View view, Context context, Cursor cursor) {
             super.bindView(view, context, cursor);
-            SharedPreferences sharedPreferences= mContext.getSharedPreferences("prefs",MODE_PRIVATE);
-            if (view instanceof Button){
-                int i=sharedPreferences.getInt("size",6);
-                ((Button)view).setTextSize((float)i);
-                int c=sharedPreferences.getInt("color", Color.BLACK);
-                ((Button)view).setTextColor(c);
-                Log.d("sh prefs val:",Integer.toString(i));
-            }
+//            SharedPreferences sharedPreferences= mContext.getSharedPreferences("prefs",MODE_PRIVATE);
+//            if (view instanceof Button){
+//                int i=sharedPreferences.getInt("size",6);
+//                ((Button)view).setTextSize((float)i);
+//                int c=sharedPreferences.getInt("color", Color.BLACK);
+//                ((Button)view).setTextColor(c);
+//                Log.d("jaki text?",((Button) view).getText().toString());
+//            }
 
         }
     }

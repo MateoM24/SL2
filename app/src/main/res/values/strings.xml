@@ -4,11 +4,11 @@
     <string name="button_main_to_PList">List of products</string>
     <string name="title_activity_product_list">ProductListActivity</string>
     <string name="button_return">Return to main menu</string>
-    <string name="button_options">List font options</string>
+    <string name="button_options">Options</string>
     <string name="font_size">Font size</string>
     <string name="size_prefs">size_prefs</string>
     <string name="font_color">Font color</string>
-    <string name="option">Option</string>
+    <string name="option">Options</string>
     <string name="value">Value</string>
     <string name="add_item">Add a product</string>
     <string name="no_data">please add products to buy</string>
