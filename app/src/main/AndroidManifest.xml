@@ -22,7 +22,7 @@
         <activity android:name=".OptionsActivity" />
         <activity
             android:name=".ProductListActivity"
-            android:label="Shopping List"
+            android:label="@string/products_to_buy"
             android:theme="@android:style/Theme.Holo.Light.DarkActionBar"/>
         <activity android:name=".Popup"
             android:theme="@style/AppTheme.MyCustomTheme"

@@ -30,6 +30,7 @@
     <string name="ok">Ok</string>
     <string name="accept_button">Change</string>
     <string name="cancel_button">Cancell</string>
+    <string name="products_to_buy">Products to buy</string>
     <string-array name="font_sizes">
         <item>20</item>
         <item>10</item>

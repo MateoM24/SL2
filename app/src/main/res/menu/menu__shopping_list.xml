@@ -24,5 +24,9 @@
         android:title="@string/remove_list_button"
         android:id="@+id/delete_all_option"
         />
+    <item
+        android:title="@string/button_return"
+        android:id="@+id/return_button"
+        />
 
 </menu>

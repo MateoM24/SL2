@@ -28,6 +28,8 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -38,7 +40,6 @@ import static android.graphics.Paint.STRIKE_THRU_TEXT_FLAG;
 public class ProductListActivity extends ListActivity implements AdapterView.OnItemClickListener {
     private SQLiteDatabase db;
     private Cursor cursor;
-    Button backToMain;
     LinearLayout linearLayout;
     TextView currentTV;
     DBHelper dbHelper;
@@ -47,25 +48,13 @@ public class ProductListActivity extends ListActivity implements AdapterView.OnI
     Button currentButton;
     Intent intent;
     boolean isSelected;
+    public static Set<String> buttonNamesSet=new HashSet<String>();;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_list);//to niestandardowe podejscie
-        //map=new HashMap<>(1,2);
-       // buttonSet=new HashSet<Button>();don't need it
         dbHelper=new DBHelper(this);
-        backToMain=(Button)findViewById(R.id.backToMain);
-        final Intent intentToMain=new Intent(this,MainActivity.class);
-        backToMain.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(intentToMain);
-            }
-        });
-
-
-
     }
     @Override
     public void onDestroy(){
@@ -110,22 +99,26 @@ public class ProductListActivity extends ListActivity implements AdapterView.OnI
         switch (item.getItemId()) {
             case R.id.bought_button:
                 if (isSelected)
-                currentTV=(TextView)linearLayout.getChildAt(1);
+                try{currentTV=(TextView)linearLayout.getChildAt(1);
                 DBHelper.UpdateRowDoneValue(dbHelper.getWritableDatabase(),currentTV.getText().toString(),true);
                 currentTV.setPaintFlags(currentTV.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                 db=dbHelper.getWritableDatabase();
                 DBHelper.UpdateRowDoneValue(db,currentTV.getText().toString(),true);
                 db.close();
-                return true;
+                buttonNamesSet.add(currentTV.getText().toString());
+                }catch (NullPointerException e){}finally {
+                return true;}
             case R.id.not_bought_button:
                 if (isSelected)
-                currentTV=(TextView)linearLayout.getChildAt(1);
+                try{currentTV=(TextView)linearLayout.getChildAt(1);
                 DBHelper.UpdateRowDoneValue(dbHelper.getWritableDatabase(),currentTV.getText().toString(),false);
                 currentTV.setPaintFlags(currentTV.getPaintFlags() ^ Paint.STRIKE_THRU_TEXT_FLAG);
                 db=dbHelper.getWritableDatabase();
                 DBHelper.UpdateRowDoneValue(db,currentTV.getText().toString(),false);
                 db.close();
-                return true;
+                buttonNamesSet.add(currentTV.getText().toString());
+                }catch (NullPointerException e){}finally {
+                return true;}
             case R.id.add_option:
                 intent=new Intent(this,Popup.class);
                 startActivity(intent);
@@ -142,6 +135,11 @@ public class ProductListActivity extends ListActivity implements AdapterView.OnI
                 return true;
             case R.id.delete_all_option:
                 intent=new Intent(this,PopupRemoveAll.class);
+                startActivity(intent);
+                isSelected=false;
+                return true;
+            case R.id.return_button:
+                intent = new Intent(this,MainActivity.class);
                 startActivity(intent);
                 return true;
             default:
@@ -183,13 +181,13 @@ public class ProductListActivity extends ListActivity implements AdapterView.OnI
 
         @Override
         public View newView(Context context, Cursor cursor, ViewGroup parent) {
-            Button b=(Button) findViewById(R.id.productNameTV);
-                    b.setTextSize(9);
+            //Button b=(Button) findViewById(R.id.productNameTV);
+              //      b.setTextSize(9);
             return super.newView(context, cursor, parent);
         }
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            if(convertView == null)
+                if(convertView == null)
             {
                 LayoutInflater vi = (LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 convertView = vi.inflate(R.layout.single_row, null);
@@ -197,15 +195,9 @@ public class ProductListActivity extends ListActivity implements AdapterView.OnI
             TextView tv = (TextView)convertView.findViewById(R.id.productNameTV);
             sharedPreferences=getSharedPreferences("prefs",MODE_PRIVATE);
             tv.setTextSize(sharedPreferences.getInt("size",20));
-            tv.setTextColor(sharedPreferences.getInt("color",Color.BLACK));
-            //jesli w db jest done tru to przekreśl
-            String currViewText=tv.getText().toString();
+            tv.setTextColor(sharedPreferences.getInt("color",Color.GRAY));
+            /*String currViewText=tv.getText().toString();
             Cursor cursorI=DBHelper.getDoneValue(dbHelper.getReadableDatabase(),currViewText);
-           // Log.d("slowo: ",currViewText);
-            //Log.d("cursor pusty? ",String.valueOf(cursorI==null));
-            //Log.d("cursor movefirst",String.valueOf(cursorI.moveToFirst()));
-            //Log.d("jaka wart donejest?: ",String.valueOf(cursorI.getType(0)));
-           //Log.d("ile rows: ",String.valueOf(cursorI.getCount()));
             if(cursorI!=null && cursorI.moveToFirst()) {
                 int i = cursorI.getInt(0);
                 if (i == 1) {
@@ -215,11 +207,10 @@ public class ProductListActivity extends ListActivity implements AdapterView.OnI
                     Log.d("done? ", currViewText + " nie"+String.valueOf(i));
                     tv.setPaintFlags(tv.getPaintFlags() ^ Paint.STRIKE_THRU_TEXT_FLAG);
                 }
-            }
-                //if (cursorI != null&& cursorI.moveToFirst())
-            //Log.d("jaka wartosc DONE",String.valueOf(cursorI.getType(0)));
+            }*/
+
             //return convertView;
-            return super.getView(position, convertView, parent);
+           return super.getView(position, convertView, parent);
 
         }
         @Override

@@ -26,29 +26,4 @@
             android:text="@string/please_add_something"/>
 
 </LinearLayout>
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_alignParentBottom="true">
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/add"
-        android:text="@string/add_item"
-        android:background="@color/colorPrimaryDark"
-        android:textSize="@dimen/text_size"
-        android:onClick="toAddPopup"
-        />
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:background="@color/colorPrimaryDark"
-        android:id="@+id/backToMain"
-        android:text="@string/button_return"
-        android:textSize="@dimen/text_size"
-        />
-</LinearLayout>
 </RelativeLayout>
