@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import static java.lang.Boolean.FALSE;
+
 /**
  * Created by Mateusz on 2016-10-29.
  */
@@ -29,7 +31,6 @@ public class DBHelper extends SQLiteOpenHelper {
                 "NAME TEXT UNIQUE, "+
                 "DONE INTEGER);");
     }
-    //"DONE NUMERIC);");
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
@@ -63,14 +64,23 @@ public class DBHelper extends SQLiteOpenHelper {
         int success=db.delete(TableShoppings,null,null);
         return success>0;
     }
-    public Cursor GetAllShoppings(SQLiteDatabase db){
+    public static Cursor GetAllShoppings(SQLiteDatabase db){
         Cursor cursor=db.query(TableShoppings,new String[]{"_ID","NAME","DONE"},null,null,null
         ,null,null);
         return cursor;
     }
+    public static Cursor getListToBuy(SQLiteDatabase db){
+        Cursor cursor=db.query(TableShoppings,new String[]{"_ID","NAME","DONE"},"DONE = ?",new String[]{"0"},null
+                ,null,null);
+        return cursor;
+    }
+    public static Cursor getListDone(SQLiteDatabase db){
+        Cursor cursor=db.query(TableShoppings,new String[]{"_ID","NAME","DONE"},"DONE = ?",new String[]{"1"},null
+                ,null,null);
+        return cursor;
+    }
     public static Cursor getDoneValue(SQLiteDatabase db, String name){
         Cursor cursor=db.query(TableShoppings,new String[]{"DONE"},"NAME = ?",new String[]{name},null,null,null);
-        //int i=cursor.getInt(cursor.getColumnIndex("DONE"));
         return cursor;
     }
 }

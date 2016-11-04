@@ -22,22 +22,13 @@ import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
-import static android.graphics.Paint.STRIKE_THRU_TEXT_FLAG;
-
-public class ProductListActivity extends ListActivity implements AdapterView.OnItemClickListener {
+public class DoneListActivity extends ListActivity implements AdapterView.OnItemClickListener {
     private SQLiteDatabase db;
     private Cursor cursor;
     LinearLayout linearLayout;
@@ -48,19 +39,18 @@ public class ProductListActivity extends ListActivity implements AdapterView.OnI
     Button currentButton;
     Intent intent;
     boolean isSelected;
-    public static Set<String> buttonNamesSet=new HashSet<String>();;
     ListView list;
     ListAdapter listAdapter;
-    Button didBuy;
-    Button toDoneList;
+    Button uncheck;
+    Button goBackButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_product_list);
+        setContentView(R.layout.activity_done_list);
         dbHelper=new DBHelper(this);
-        didBuy=(Button)findViewById(R.id.bought);
-        toDoneList=(Button)findViewById(R.id.toDoneList);
+        uncheck=(Button)findViewById(R.id.notDone);
+        goBackButton=(Button)findViewById(R.id.goBack);
     }
     @Override
     public void onDestroy(){
@@ -116,11 +106,11 @@ public class ProductListActivity extends ListActivity implements AdapterView.OnI
                 }
                 return true;
             case R.id.delete_option:
-                if(isSelected) {
-                    intent = new Intent(this, PopupRemove.class);
-                    intent.putExtra("name", currentButton.getText().toString());
-                    startActivity(intent);
-                isSelected=false;}else{
+                if(isSelected){
+                    intent=new Intent(this,PopupRemove.class);
+                intent.putExtra("name",currentButton.getText().toString());
+                    isSelected=false;
+                startActivity(intent);}else{
                     Toast.makeText(getBaseContext(),R.string.select_item,Toast.LENGTH_SHORT);
                 }
                 return true;
@@ -144,20 +134,18 @@ public class ProductListActivity extends ListActivity implements AdapterView.OnI
         list=getListView();
         dbHelper=new DBHelper(this);
         db=dbHelper.getWritableDatabase();
-        //cursor=dbHelper.GetAllShoppings(db);
-        cursor=DBHelper.getListToBuy(db);
-
-        listAdapter=new MySimpleCursorAdapter2(this,
+        cursor=DBHelper.getListDone(db);
+        listAdapter=new MySimpleCursorAdapter1(this,
                 R.layout.single_row,cursor, new String[]{"NAME"},
                 new int[]{R.id.productNameTV},0);
         list.setAdapter(listAdapter);
         list.setOnItemClickListener(this);
     }
-    //================================================================================
-    public class MySimpleCursorAdapter2 extends android.support.v4.widget.SimpleCursorAdapter {
+
+        public class MySimpleCursorAdapter1 extends android.support.v4.widget.SimpleCursorAdapter {
         SharedPreferences sharedPreferences;
 
-        public MySimpleCursorAdapter2(Context context, int layout, Cursor c, String[] from, int[] to, int flags) {
+        public MySimpleCursorAdapter1(Context context, int layout, Cursor c, String[] from, int[] to, int flags) {
             super(context, layout, c, from, to, flags);
 
         }
@@ -184,51 +172,28 @@ public class ProductListActivity extends ListActivity implements AdapterView.OnI
             sharedPreferences=getSharedPreferences("prefs",MODE_PRIVATE);
             tv.setTextSize(sharedPreferences.getInt("size",20));
             tv.setTextColor(sharedPreferences.getInt("color",Color.GRAY));
-            //== od tąd kombinuje teraz
-            String currViewText=tv.getText().toString();
-            Cursor cursorI=DBHelper.getDoneValue(dbHelper.getReadableDatabase(),currViewText);
-            if(cursorI!=null && cursorI.moveToFirst()) {
-                int i = cursorI.getInt(0);
-                if (i == 1) {
-                    Log.d("done? ", currViewText + " tak");
-                    tv.setPaintFlags(tv.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                }else{
-                    Log.d("done? ", currViewText + " nie"+String.valueOf(i));
-                    tv.setPaintFlags(tv.getPaintFlags() ^ Paint.STRIKE_THRU_TEXT_FLAG);
-                }
+            tv.setPaintFlags(tv.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            return super.getView(position, convertView, parent);
             }
 
-            //return convertView;
-            //do tąd kombinowanie
-           return super.getView(position, convertView, parent);
-
-        }
         @Override
         public void bindView(View view, Context context, Cursor cursor) {
             super.bindView(view, context, cursor);
-//            SharedPreferences sharedPreferences= mContext.getSharedPreferences("prefs",MODE_PRIVATE);
-//            if (view instanceof Button){
-//                int i=sharedPreferences.getInt("size",6);
-//                ((Button)view).setTextSize((float)i);
-//                int c=sharedPreferences.getInt("color", Color.BLACK);
-//                ((Button)view).setTextColor(c);
-//                Log.d("jaki text?",((Button) view).getText().toString());
-//            }
-
         }
     }
-    //=====================================================
     private void refreshTheList(){
         this.onResume();
     }
-    public void markDone(View v) {
-        currentTV = (TextView) linearLayout.getChildAt(1);
-        DBHelper.UpdateRowDoneValue(dbHelper.getWritableDatabase(), currentTV.getText().toString(), true);
-        refreshTheList();
-    }
-    public void goToDoneList(View v){
-        intent=new Intent(this,DoneListActivity.class);
+    public void goBack(View v){
+        intent=new Intent(this,ProductListActivity.class);
         startActivity(intent);
     }
-
+    public void unmark(View v){
+        if (isSelected) {
+            currentTV = (TextView) linearLayout.getChildAt(1);
+            DBHelper.UpdateRowDoneValue(dbHelper.getWritableDatabase(), currentTV.getText().toString(),false);
+            currentTV.setPaintFlags(currentTV.getPaintFlags() ^ Paint.STRIKE_THRU_TEXT_FLAG);
+            refreshTheList();
+        }
+    }
 }

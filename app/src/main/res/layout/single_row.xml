@@ -26,6 +26,7 @@
         android:clickable="false"
         android:focusable="false"
         android:textSize="@dimen/text_size"
+        
                 />
 
 <!--

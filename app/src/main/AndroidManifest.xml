@@ -19,10 +19,15 @@
         </activity>
         <activity android:name=".ProductListActivity2" />
         <activity android:name=".AllProductsHistoryActivity" />
-        <activity android:name=".OptionsActivity" />
+        <activity android:name=".OptionsActivity"
+            android:label="@string/options"
+            />
         <activity
             android:name=".ProductListActivity"
             android:label="@string/products_to_buy"
+            android:theme="@android:style/Theme.Holo.Light.DarkActionBar"/>
+        <activity android:name=".DoneListActivity"
+            android:label="@string/marked_bought"
             android:theme="@android:style/Theme.Holo.Light.DarkActionBar"/>
         <activity android:name=".Popup"
             android:theme="@style/AppTheme.MyCustomTheme"

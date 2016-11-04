@@ -19,22 +19,22 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/bought"
+                android:text="@string/mark_not_bought"
+                android:id="@+id/notDone"
                 android:background="@color/colorPrimaryDark"
                 android:layout_margin="@dimen/fab_margin"
                 android:layout_weight="1"
-                android:id="@+id/bought"
-                android:onClick="markDone"
+                android:onClick="unmark"
                 />
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/go_to_done_list"
+                android:text="@string/back_to_shopping_list"
                 android:background="@color/colorPrimaryDark"
                 android:layout_margin="@dimen/fab_margin"
                 android:layout_weight="1"
-                android:id="@+id/toDoneList"
-                android:onClick="goToDoneList"
+                android:id="@+id/goBack"
+                android:onClick="goBack"
                 />
         </LinearLayout>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -43,6 +43,7 @@
     android:orientation="vertical"
     android:id="@+id/bottomLayout"
     android:layout_marginTop="80dp"
+    android:background="@color/colorBackground"
     >
     <ListView
         android:id="@android:id/list"

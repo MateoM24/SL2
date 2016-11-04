@@ -12,6 +12,7 @@
     android:layout_marginBottom="@dimen/activity_button_top_bottom"
     android:padding="@dimen/padding_button"
     android:id="@+id/layout"
+    android:background="@color/colorBackground"
     >
     <Button
         android:layout_width="match_parent"
