@@ -1,12 +1,10 @@
 package mm.shoppinglist;
 
 import android.app.Activity;
-
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -14,7 +12,6 @@ public class Popup extends Activity{
     SQLiteDatabase db;
     DBHelper dbHelper;
     EditText editText;
-    Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

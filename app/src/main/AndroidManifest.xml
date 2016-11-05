@@ -17,8 +17,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ProductListActivity2" />
-        <activity android:name=".AllProductsHistoryActivity" />
         <activity android:name=".OptionsActivity"
             android:label="@string/options"
             />

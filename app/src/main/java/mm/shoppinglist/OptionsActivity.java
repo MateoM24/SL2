@@ -2,7 +2,9 @@ package mm.shoppinglist;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Color;
+import android.preference.Preference;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,8 +12,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.Spinner;
-import android.widget.Toast;
+import android.widget.Switch;
+
+import java.util.Locale;
 
 public class OptionsActivity extends AppCompatActivity {
     Button button_return;
@@ -24,11 +29,11 @@ public class OptionsActivity extends AppCompatActivity {
     String color;
     int c;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_options);
+        sharedPreferences=getSharedPreferences("prefs",MODE_PRIVATE);
         button_return=(Button) findViewById(R.id.return_button);
         final Intent backToMain=new Intent(this,MainActivity.class);
         button_return.setOnClickListener(new View.OnClickListener() {
@@ -48,7 +53,6 @@ public class OptionsActivity extends AppCompatActivity {
         spinnerSize.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.d("wartosc int: ",((String)adapterView.getItemAtPosition(i)));
                 size=Integer.valueOf((String)adapterView.getItemAtPosition(i));
             }
 
@@ -60,7 +64,6 @@ public class OptionsActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 color=(String)adapterView.getItemAtPosition(i);
-                Log.d("onclick kolor ",color);
 
             }
 
@@ -82,7 +85,6 @@ public class OptionsActivity extends AppCompatActivity {
                    break;
 
             }
-
             editor.putInt("color",c);
             editor.apply();
             editor.commit();
@@ -93,10 +95,8 @@ public class OptionsActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        sharedPreferences=getSharedPreferences("prefs",MODE_PRIVATE);
         int i=sharedPreferences.getInt("size",20);
         adapter1.getPosition(String.valueOf(i));
-        Log.d("size onResume ",String.valueOf(i));
         int s=sharedPreferences.getInt("color",Color.BLACK);
         String posS;
         switch (s){
@@ -108,8 +108,7 @@ public class OptionsActivity extends AppCompatActivity {
                 break;
             default: posS="black";
         }
-        Log.d("kolor posS onResume ",posS);
         adapter2.getPosition(posS);
-        Log.d("resume,kolor: ",posS);
+
     }
 }

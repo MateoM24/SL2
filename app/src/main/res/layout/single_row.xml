@@ -28,29 +28,4 @@
         android:textSize="@dimen/text_size"
         
                 />
-
-<!--
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/productNameTV"
-        ndroid:padding="@dimen/padding_button"
-        android:textAlignment="center"a
-        />
--->
-
-
-    <!--
-    <ToggleButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/toggleButton"
-        />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/toggleButton"/>
-    -->
-
 </LinearLayout>

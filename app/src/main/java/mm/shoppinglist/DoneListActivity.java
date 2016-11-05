@@ -63,18 +63,12 @@ public class DoneListActivity extends ListActivity implements AdapterView.OnItem
         currentCB=(CheckBox) linearLayout.getChildAt(0);
         currentCB.toggle();
             currentButton=(Button)linearLayout.getChildAt(1);
-            //map.clear();
-            //map.put(currentCB,currentButton);
-
-
         }else{
             lastCB=currentCB;
             lastCB.toggle();
             currentCB=(CheckBox) linearLayout.getChildAt(0);
             currentCB.toggle();
             currentButton=(Button)linearLayout.getChildAt(1);
-            //map.clear();
-            //map.put(currentCB,currentButton);
             }
         }
 
@@ -153,8 +147,6 @@ public class DoneListActivity extends ListActivity implements AdapterView.OnItem
 
         @Override
         public View newView(Context context, Cursor cursor, ViewGroup parent) {
-            //Button b=(Button) findViewById(R.id.productNameTV);
-              //      b.setTextSize(9);
             return super.newView(context, cursor, parent);
         }
         @Override

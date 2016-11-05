@@ -23,15 +23,7 @@
         android:text="@string/button_main_to_SList"
         android:textSize="@dimen/text_size"
         />
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/ButtonToProductList"
-        android:background="@color/colorPrimaryDark"
-        android:layout_marginBottom="40dp"
-        android:text="@string/button_main_to_PList"
-        android:textSize="@dimen/text_size"
-        />
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

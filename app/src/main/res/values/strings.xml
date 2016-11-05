@@ -35,6 +35,7 @@
     <string name="mark_not_bought">Didn\'t buy this one yet!</string>
     <string name="bought">Mark already purchased!</string>
     <string name="select_item">No item selected</string>
+    <string name="language">Language en/pl</string>
 
     <string-array name="font_sizes">
         <item>20</item>

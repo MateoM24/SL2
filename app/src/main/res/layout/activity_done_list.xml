@@ -57,6 +57,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/colorPrimaryDark"
+            android:layout_margin="30dp"
+            android:padding="30dp"
             android:text="@string/please_add_something"/>
 
 </LinearLayout>

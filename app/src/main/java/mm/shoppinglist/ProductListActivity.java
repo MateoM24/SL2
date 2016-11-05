@@ -4,6 +4,7 @@ import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -25,8 +26,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Locale;
 
 public class ProductListActivity extends ListActivity implements AdapterView.OnItemClickListener {
     private SQLiteDatabase db;
@@ -39,7 +39,6 @@ public class ProductListActivity extends ListActivity implements AdapterView.OnI
     Button currentButton;
     Intent intent;
     boolean isSelected;
-    public static Set<String> buttonNamesSet=new HashSet<String>();;
     ListView list;
     ListAdapter listAdapter;
     Button didBuy;
@@ -68,18 +67,12 @@ public class ProductListActivity extends ListActivity implements AdapterView.OnI
         currentCB=(CheckBox) linearLayout.getChildAt(0);
         currentCB.toggle();
             currentButton=(Button)linearLayout.getChildAt(1);
-            //map.clear();
-            //map.put(currentCB,currentButton);
-
-
         }else{
             lastCB=currentCB;
             lastCB.toggle();
             currentCB=(CheckBox) linearLayout.getChildAt(0);
             currentCB.toggle();
             currentButton=(Button)linearLayout.getChildAt(1);
-            //map.clear();
-            //map.put(currentCB,currentButton);
             }
         }
 
@@ -135,7 +128,6 @@ public class ProductListActivity extends ListActivity implements AdapterView.OnI
         list=getListView();
         dbHelper=new DBHelper(this);
         db=dbHelper.getWritableDatabase();
-        //cursor=dbHelper.getAllShoppings(db);
         cursor=DBHelper.getListToBuy(db);
 
         listAdapter=new MySimpleCursorAdapter2(this,
@@ -160,8 +152,6 @@ public class ProductListActivity extends ListActivity implements AdapterView.OnI
 
         @Override
         public View newView(Context context, Cursor cursor, ViewGroup parent) {
-            //Button b=(Button) findViewById(R.id.productNameTV);
-              //      b.setTextSize(9);
             return super.newView(context, cursor, parent);
         }
         @Override
@@ -175,7 +165,6 @@ public class ProductListActivity extends ListActivity implements AdapterView.OnI
             sharedPreferences=getSharedPreferences("prefs",MODE_PRIVATE);
             tv.setTextSize(sharedPreferences.getInt("size",20));
             tv.setTextColor(sharedPreferences.getInt("color",Color.GRAY));
-            //== od tąd kombinuje teraz
             String currViewText=tv.getText().toString();
             Cursor cursorI=DBHelper.getDoneValue(dbHelper.getReadableDatabase(),currViewText);
             if(cursorI!=null && cursorI.moveToFirst()) {
@@ -188,24 +177,12 @@ public class ProductListActivity extends ListActivity implements AdapterView.OnI
                     tv.setPaintFlags(tv.getPaintFlags() ^ Paint.STRIKE_THRU_TEXT_FLAG);
                 }
             }
-
-            //return convertView;
-            //do tąd kombinowanie
            return super.getView(position, convertView, parent);
 
         }
         @Override
         public void bindView(View view, Context context, Cursor cursor) {
             super.bindView(view, context, cursor);
-//            SharedPreferences sharedPreferences= mContext.getSharedPreferences("prefs",MODE_PRIVATE);
-//            if (view instanceof Button){
-//                int i=sharedPreferences.getInt("size",6);
-//                ((Button)view).setTextSize((float)i);
-//                int c=sharedPreferences.getInt("color", Color.BLACK);
-//                ((Button)view).setTextColor(c);
-//                Log.d("jaki text?",((Button) view).getText().toString());
-//            }
-
         }
     }
     //=====================================================
@@ -221,5 +198,4 @@ public class ProductListActivity extends ListActivity implements AdapterView.OnI
         intent=new Intent(this,DoneListActivity.class);
         startActivity(intent);
     }
-
 }

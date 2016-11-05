@@ -1,13 +1,11 @@
 package mm.shoppinglist;
 
 import android.app.Activity;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
 
 public class PopupRemoveAll extends Activity{
-    SQLiteDatabase db;
     DBHelper dbHelper;
 
 

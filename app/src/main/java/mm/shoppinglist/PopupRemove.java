@@ -2,7 +2,6 @@ package mm.shoppinglist;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -10,7 +9,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class PopupRemove extends Activity{
-    SQLiteDatabase db;
     DBHelper dbHelper;
     TextView tv;
     String product;

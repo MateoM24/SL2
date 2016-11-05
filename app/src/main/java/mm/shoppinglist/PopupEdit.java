@@ -10,7 +10,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class PopupEdit extends Activity{
-    SQLiteDatabase db;
     DBHelper dbHelper;
     EditText editText;
     Intent intent;

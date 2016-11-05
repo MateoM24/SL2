@@ -4,19 +4,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
-
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     Button buttonSList;
-    Button buttonPList;
     Button buttonOptions;
     SharedPreferences preferences;
     String MyPrefs = "Prefs";
@@ -32,16 +26,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(intentToSList);
-            }
-        });
-        buttonPList = (Button) findViewById(R.id.ButtonToProductList);
-        final Intent intentToPList = new Intent(this, AllProductsHistoryActivity.class);
-        //buttonPList.setOnClickListener(View v->startActivity(intentToPList));
-        // nie wiem jak zmienić ustawienia na java 8 zey lambdy działały
-        buttonPList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(intentToPList);
             }
         });
         buttonOptions = (Button) findViewById(R.id.buttonToOptions);
@@ -72,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         if (preferences.contains(sizePrefs)) {
             ArrayList<Button> views = getAllViews();
             for (Button v : views)
-                v.setTextSize(preferences.getInt(sizePrefs, 20));//ja domysla wartosc tu ma byc wpisana?
+                v.setTextSize(preferences.getInt(sizePrefs, 20));
         }
     }
 
