@@ -6,7 +6,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -40,7 +39,7 @@ public class PopupEdit extends Activity{
     public void edit(View v){
         dbHelper=new DBHelper(this);
         String newName=editText.getText().toString();
-        DBHelper.UpdateRowNameValue(dbHelper.getWritableDatabase(),oldName,newName);
+        DBHelper.updateRowNameValue(dbHelper.getWritableDatabase(),oldName,newName);
         Toast.makeText(getBaseContext(),"Product edited",Toast.LENGTH_SHORT).show();
         finish();
     }

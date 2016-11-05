@@ -6,8 +6,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,7 +29,7 @@ public class PopupRemove extends Activity{
     }
     public void remove(View v){
         dbHelper=new DBHelper(this);
-        DBHelper.DeleteRowShoppingList(dbHelper.getWritableDatabase(),product);
+        DBHelper.deleteRowShoppingList(dbHelper.getWritableDatabase(),product);
         Toast.makeText(getBaseContext(),R.string.removed,Toast.LENGTH_SHORT).show();
         dismiss(v);
     }

@@ -9,7 +9,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,9 +23,6 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.HashSet;
-import java.util.Set;
 
 public class DoneListActivity extends ListActivity implements AdapterView.OnItemClickListener {
     private SQLiteDatabase db;
@@ -191,7 +187,7 @@ public class DoneListActivity extends ListActivity implements AdapterView.OnItem
     public void unmark(View v){
         if (isSelected) {
             currentTV = (TextView) linearLayout.getChildAt(1);
-            DBHelper.UpdateRowDoneValue(dbHelper.getWritableDatabase(), currentTV.getText().toString(),false);
+            DBHelper.updateRowDoneValue(dbHelper.getWritableDatabase(), currentTV.getText().toString(),false);
             currentTV.setPaintFlags(currentTV.getPaintFlags() ^ Paint.STRIKE_THRU_TEXT_FLAG);
             refreshTheList();
         }

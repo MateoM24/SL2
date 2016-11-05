@@ -33,7 +33,7 @@
     <string name="marked_bought">Purchased products list</string>
     <string name="back_to_shopping_list">Products to buy list</string>
     <string name="mark_not_bought">Didn\'t buy this one yet!</string>
-    <string name="bought">Mark purchased!</string>
+    <string name="bought">Mark already purchased!</string>
     <string name="select_item">No item selected</string>
 
     <string-array name="font_sizes">

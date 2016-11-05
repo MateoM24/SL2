@@ -30,7 +30,7 @@ public class Popup extends Activity{
     public void add(View v){
         dbHelper=new DBHelper(this);
         String newProduct=editText.getText().toString();
-        DBHelper.InsertRowShoppingList(dbHelper.getWritableDatabase(),newProduct);
+        DBHelper.insertRowShoppingList(dbHelper.getWritableDatabase(),newProduct);
         editText.setText(null);
         Toast.makeText(getBaseContext(),(newProduct+" added"),Toast.LENGTH_SHORT).show();
     }

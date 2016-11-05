@@ -36,7 +36,7 @@ public class ProductListActivity2 extends AppCompatActivity {
         textView.setText("");
         dbhelper=new DBHelper(this);
         db=dbhelper.getReadableDatabase();
-        Cursor cursor=dbhelper.GetAllShoppings(db);
+        Cursor cursor=dbhelper.getAllShoppings(db);
             if(cursor.moveToFirst()){
                 String name=cursor.getString(0);
                 boolean done=cursor.getInt(1)>0;
@@ -52,8 +52,8 @@ public class ProductListActivity2 extends AppCompatActivity {
     }
     public void addItem(View view){
         db=dbhelper.getReadableDatabase();
-        dbhelper.InsertRowShoppingList(db,"mleko");
-        dbhelper.InsertRowShoppingList(db,"maslo");
+        dbhelper.insertRowShoppingList(db,"mleko");
+        dbhelper.insertRowShoppingList(db,"maslo");
 
     }
 }

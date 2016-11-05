@@ -17,7 +17,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String DB_NAME="DataBase";
     private static final int DB_VERSION=1;
     private static final String TableShoppings="ShoppingList";
-    private static final String TableProducts="ProductList";//do zaimlementowania tabeli z historycznymi rekordami
+    //private static final String TableProducts="ProductList";//do zaimlementowania tabeli z historycznymi rekordami w przyszlosci
 
 
     DBHelper(Context context){
@@ -37,34 +37,34 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
 
-    public static boolean InsertRowShoppingList(SQLiteDatabase db, String name){
+    public static boolean insertRowShoppingList(SQLiteDatabase db, String name){
         ContentValues values=new ContentValues();
         values.put("NAME",name);
         values.put("DONE",false);
         long success=db.insert(TableShoppings,null,values);
         return success!=-1;
     }
-    public static boolean UpdateRowNameValue(SQLiteDatabase db,String OldName,String NewName){
+    public static boolean updateRowNameValue(SQLiteDatabase db, String OldName, String NewName){
         ContentValues values=new ContentValues();
         values.put("Name",NewName);
         int success = db.update(TableShoppings,values,"NAME = ?",new String[]{OldName});
         return success!=0;
     }
-    public static boolean UpdateRowDoneValue(SQLiteDatabase db,String Name,boolean done){
+    public static boolean updateRowDoneValue(SQLiteDatabase db, String Name, boolean done){
         ContentValues values=new ContentValues();
         values.put("DONE",done);
         int success = db.update(TableShoppings,values,"NAME = ?",new String[]{Name});
         return success!=0;
     }
-    public static boolean DeleteRowShoppingList(SQLiteDatabase db,String name){
+    public static int deleteRowShoppingList(SQLiteDatabase db, String name){
         int success=db.delete(TableShoppings,"NAME = ?",new String[]{name});
-        return success>0;
+        return success;
     }
-    public static boolean DeleteWholeList(SQLiteDatabase db){
+    public static int deleteWholeList(SQLiteDatabase db){
         int success=db.delete(TableShoppings,null,null);
-        return success>0;
+        return success;
     }
-    public static Cursor GetAllShoppings(SQLiteDatabase db){
+    public static Cursor getAllShoppings(SQLiteDatabase db){
         Cursor cursor=db.query(TableShoppings,new String[]{"_ID","NAME","DONE"},null,null,null
         ,null,null);
         return cursor;

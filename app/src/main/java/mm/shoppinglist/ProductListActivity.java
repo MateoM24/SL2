@@ -22,20 +22,11 @@ import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
-
-import static android.graphics.Paint.STRIKE_THRU_TEXT_FLAG;
 
 public class ProductListActivity extends ListActivity implements AdapterView.OnItemClickListener {
     private SQLiteDatabase db;
@@ -144,7 +135,7 @@ public class ProductListActivity extends ListActivity implements AdapterView.OnI
         list=getListView();
         dbHelper=new DBHelper(this);
         db=dbHelper.getWritableDatabase();
-        //cursor=dbHelper.GetAllShoppings(db);
+        //cursor=dbHelper.getAllShoppings(db);
         cursor=DBHelper.getListToBuy(db);
 
         listAdapter=new MySimpleCursorAdapter2(this,
@@ -223,7 +214,7 @@ public class ProductListActivity extends ListActivity implements AdapterView.OnI
     }
     public void markDone(View v) {
         currentTV = (TextView) linearLayout.getChildAt(1);
-        DBHelper.UpdateRowDoneValue(dbHelper.getWritableDatabase(), currentTV.getText().toString(), true);
+        DBHelper.updateRowDoneValue(dbHelper.getWritableDatabase(), currentTV.getText().toString(), true);
         refreshTheList();
     }
     public void goToDoneList(View v){

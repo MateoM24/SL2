@@ -41,6 +41,10 @@
         <activity android:name=".PopupEdit"
             android:theme="@style/AppTheme.MyCustomTheme"
             />
+        <provider
+            android:authorities="ShoppingListCP"
+            android:name=".ShoppingListContentProvider"
+            />
     </application>
 
 </manifest>
