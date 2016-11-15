@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<LinearLayout android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MainActivity"
@@ -13,7 +11,7 @@
     android:padding="@dimen/padding_button"
     android:id="@+id/layout"
     android:background="@color/colorBackground"
-    >
+    android:layout_width="match_parent">
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

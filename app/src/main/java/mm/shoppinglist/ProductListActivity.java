@@ -165,18 +165,16 @@ public class ProductListActivity extends ListActivity implements AdapterView.OnI
             sharedPreferences=getSharedPreferences("prefs",MODE_PRIVATE);
             tv.setTextSize(sharedPreferences.getInt("size",20));
             tv.setTextColor(sharedPreferences.getInt("color",Color.GRAY));
-            String currViewText=tv.getText().toString();
-            Cursor cursorI=DBHelper.getDoneValue(dbHelper.getReadableDatabase(),currViewText);
-            if(cursorI!=null && cursorI.moveToFirst()) {
-                int i = cursorI.getInt(0);
-                if (i == 1) {
-                    Log.d("done? ", currViewText + " tak");
-                    tv.setPaintFlags(tv.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                }else{
-                    Log.d("done? ", currViewText + " nie"+String.valueOf(i));
-                    tv.setPaintFlags(tv.getPaintFlags() ^ Paint.STRIKE_THRU_TEXT_FLAG);
-                }
-            }
+//            String currViewText=tv.getText().toString();
+//            Cursor cursorI=DBHelper.getDoneValue(dbHelper.getReadableDatabase(),currViewText);
+//            if(cursorI!=null && cursorI.moveToFirst()) {
+//                int i = cursorI.getInt(0);
+//                if (i == 1) {
+//                    tv.setPaintFlags(tv.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+//                }else{
+//                    tv.setPaintFlags(tv.getPaintFlags() ^ Paint.STRIKE_THRU_TEXT_FLAG);
+//                }
+//            }
            return super.getView(position, convertView, parent);
 
         }
@@ -190,8 +188,8 @@ public class ProductListActivity extends ListActivity implements AdapterView.OnI
         this.onResume();
     }
     public void markDone(View v) {
-        currentTV = (TextView) linearLayout.getChildAt(1);
-        DBHelper.updateRowDoneValue(dbHelper.getWritableDatabase(), currentTV.getText().toString(), true);
+        if (currentButton != null) {
+        DBHelper.updateRowDoneValue(dbHelper.getWritableDatabase(), currentButton.getText().toString(), true);}
         refreshTheList();
     }
     public void goToDoneList(View v){

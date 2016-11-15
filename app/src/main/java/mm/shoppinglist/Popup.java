@@ -1,6 +1,7 @@
 package mm.shoppinglist;
 
 import android.app.Activity;
+import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -27,8 +28,11 @@ public class Popup extends Activity{
     public void add(View v){
         dbHelper=new DBHelper(this);
         String newProduct=editText.getText().toString();
-        DBHelper.insertRowShoppingList(dbHelper.getWritableDatabase(),newProduct);
-        editText.setText(null);
-        Toast.makeText(getBaseContext(),(newProduct+" added"),Toast.LENGTH_SHORT).show();
+        String s=newProduct+" added";
+        try {
+            DBHelper.insertRowShoppingList(dbHelper.getWritableDatabase(), newProduct);
+        }catch (Exception e) {s="produkt juz istnieje";}
+        finally{editText.setText(null);
+        Toast.makeText(getBaseContext(),s,Toast.LENGTH_SHORT).show();}
     }
 }

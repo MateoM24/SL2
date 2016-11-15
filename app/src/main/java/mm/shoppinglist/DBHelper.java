@@ -3,9 +3,12 @@ package mm.shoppinglist;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
+import static android.R.attr.name;
 import static java.lang.Boolean.FALSE;
 
 /**
@@ -25,7 +28,7 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override  //gdy BD po raz pierwszy jest tworzona
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("CREATE TABLE "+TableShoppings+
-                "(_ID INTEGER PRIMARY KEY AUTOINCREMENT, "+
+                "(_id INTEGER PRIMARY KEY AUTOINCREMENT, "+
                 "NAME TEXT UNIQUE, "+
                 "DONE INTEGER);");
     }
@@ -35,12 +38,15 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
 
-    public static boolean insertRowShoppingList(SQLiteDatabase db, String name){
-        ContentValues values=new ContentValues();
+    public static boolean insertRowShoppingList (SQLiteDatabase db, String name)throws SQLiteConstraintException {
+       ContentValues values=new ContentValues();
         values.put("NAME",name);
         values.put("DONE",false);
-        long success=db.insert(TableShoppings,null,values);
-        return success!=-1;
+           long success=db.insert(TableShoppings,null,values);
+            if(success==-1) throw new SQLiteConstraintException("Product already exists");
+           return success!=-1;
+
+
     }
     public static boolean updateRowNameValue(SQLiteDatabase db, String OldName, String NewName){
         ContentValues values=new ContentValues();
