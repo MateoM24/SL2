@@ -9,19 +9,27 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import java.util.ArrayList;
 
+//import mateusz.mezyk.shoppinglist.backend.FullList;
+
 public class MainActivity extends AppCompatActivity {
     Button buttonSList;
     Button buttonOptions;
-    SharedPreferences preferences;
     String MyPrefs = "Prefs";
     String sizePrefs = "Size";
+    SharedPreferences preferences;//=getSharedPreferences(MyPrefs, MODE_PRIVATE);
+    //{if(preferences.getLong("tableID",0L)==0L){
+            //SharedPreferences.Editor editor=preferences.edit();
+            //editor.putLong("tableID",new FullList().getId());
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         buttonSList = (Button) findViewById(R.id.ButtonToShoppigList);
-        final Intent intentToSList = new Intent(this, ProductListActivity.class);
+        //final Intent intentToSList = new Intent(this, ProductListActivity.class);
+        final Intent intentToSList = new Intent(this, List1Activity.class);
         buttonSList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -36,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intentToOptions);
             }
         });
-
     }
 
     public ArrayList<Button> getAllViews() {

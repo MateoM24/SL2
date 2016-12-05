@@ -9,6 +9,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,7 +27,17 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.api.client.extensions.android.http.AndroidHttp;
+import com.google.api.client.extensions.android.json.AndroidJsonFactory;
+import com.google.api.client.googleapis.services.AbstractGoogleClientRequest;
+import com.google.api.client.googleapis.services.GoogleClientRequestInitializer;
+
+import java.io.IOException;
 import java.util.Locale;
+import java.util.Map;
+
+import mateusz.mezyk.shoppinglist.backend.productApi.ProductApi;
+import mateusz.mezyk.shoppinglist.backend.productApi.model.Product;
 
 public class ProductListActivity extends ListActivity implements AdapterView.OnItemClickListener {
     private SQLiteDatabase db;
@@ -51,6 +62,7 @@ public class ProductListActivity extends ListActivity implements AdapterView.OnI
         dbHelper=new DBHelper(this);
         didBuy=(Button)findViewById(R.id.bought);
         toDoneList=(Button)findViewById(R.id.toDoneList);
+
     }
     @Override
     public void onDestroy(){
@@ -184,6 +196,9 @@ public class ProductListActivity extends ListActivity implements AdapterView.OnI
         }
     }
     //=====================================================
+
+
+    //////////////////////////////////////////////////////////
     private void refreshTheList(){
         this.onResume();
     }
@@ -196,4 +211,5 @@ public class ProductListActivity extends ListActivity implements AdapterView.OnI
         intent=new Intent(this,DoneListActivity.class);
         startActivity(intent);
     }
+   
 }

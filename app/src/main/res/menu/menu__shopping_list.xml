@@ -14,7 +14,7 @@
         />
     <item
         android:title="@string/remove_list_button"
-        android:id="@+id/delete_all_option"
+        android:id="@+id/mark_all_option"
         />
     <item
         android:title="@string/button_return"
