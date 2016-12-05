@@ -36,6 +36,8 @@
     <string name="bought">Oznacz jako kupione!</string>
     <string name="select_item">Nic nie jest zaznaczone</string>
     <string name="language">Język ang/pol</string>
+    <string name="notBought">Oznacz jako niekupione!</string>
+    <string name="backToAct1">Do listy z zakupami!</string>
 
     <string-array name="font_sizes">
         <item>20</item>

@@ -21,7 +21,6 @@ import mateusz.mezyk.shoppinglist.backend.productApi.ProductApi;
 import mateusz.mezyk.shoppinglist.backend.productApi.model.Product;
 
 public class Popup extends Activity{
-   // DBHelper dbHelper;
     EditText editText;
 
     @Override
@@ -36,15 +35,12 @@ public class Popup extends Activity{
         editText=(EditText)findViewById(R.id.edit_tv);
     }
     public void add(View v){
-       // dbHelper=new DBHelper(this);
+
         String newProduct=editText.getText().toString();
         String s=newProduct+" added";
-//        try {
-//            DBHelper.insertRowShoppingList(dbHelper.getWritableDatabase(), newProduct);
-//        }catch (Exception e) {s="produkt juz istnieje";}
-//        finally{editText.setText(null);
         Product p=new Product();
         p.setName(newProduct);
+        editText.setText("");
         new TaskAddOne(p).execute();
         Toast.makeText(getBaseContext(),s,Toast.LENGTH_SHORT).show();}
 

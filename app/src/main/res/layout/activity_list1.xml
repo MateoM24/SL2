@@ -37,7 +37,7 @@
             android:layout_margin="@dimen/fab_margin"
             android:layout_weight="1"
             android:id="@+id/toDoneList"
-            android:onClick="goToDoneList"
+            android:onClick="goToAct2"
             />
     </LinearLayout>
 

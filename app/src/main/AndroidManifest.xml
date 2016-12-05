@@ -22,33 +22,33 @@
         <activity
             android:name=".OptionsActivity"
             android:label="@string/options" />
-        <activity
-            android:name=".ProductListActivity"
-            android:label="@string/products_to_buy"
-            android:theme="@android:style/Theme.Holo.Light.DarkActionBar" />
-        <activity
-            android:name=".DoneListActivity"
-            android:label="@string/marked_bought"
-            android:theme="@android:style/Theme.Holo.Light.DarkActionBar" />
+        <!--<activity-->
+            <!--android:name=".ProductListActivity"-->
+            <!--android:label="@string/products_to_buy"-->
+            <!--android:theme="@android:style/Theme.Holo.Light.DarkActionBar" />-->
+        <!--<activity-->
+            <!--android:name=".DoneListActivity"-->
+            <!--android:label="@string/marked_bought"-->
+            <!--android:theme="@android:style/Theme.Holo.Light.DarkActionBar" />-->
         <activity
             android:name=".Popup"
             android:theme="@style/AppTheme.MyCustomTheme" />
-        <activity
-            android:name=".PopupRemove"
-            android:theme="@style/AppTheme.MyCustomTheme" />
-        <activity
-            android:name=".PopupRemoveAll"
-            android:theme="@style/AppTheme.MyCustomTheme" />
-        <activity
-            android:name=".PopupEdit"
-            android:theme="@style/AppTheme.MyCustomTheme" />
+        <!--<activity-->
+            <!--android:name=".PopupRemove"-->
+            <!--android:theme="@style/AppTheme.MyCustomTheme" />-->
+        <!--<activity-->
+            <!--android:name=".PopupRemoveAll"-->
+            <!--android:theme="@style/AppTheme.MyCustomTheme" />-->
+        <!--<activity-->
+            <!--android:name=".PopupEdit"-->
+            <!--android:theme="@style/AppTheme.MyCustomTheme" />-->
 
-        <provider
-            android:name=".ShoppingListContentProvider"
-            android:authorities="ShoppingListCP" />
+        <!--<provider-->
+            <!--android:name=".ShoppingListContentProvider"-->
+            <!--android:authorities="ShoppingListCP" />-->
 
-        <activity android:name=".List2Activity" />
         <activity android:name=".List1Activity"></activity>
+        <activity android:name=".List2Activity"></activity>
     </application>
 
 </manifest>

@@ -4,18 +4,12 @@
         android:title="@string/add_item"
         android:id="@+id/add_option"
         />
-    <item
-        android:title="@string/edit_selected"
-        android:id="@+id/edit_option"
-        />
+
     <item
         android:title="@string/delete_selected"
         android:id="@+id/delete_option"
         />
-    <item
-        android:title="@string/remove_list_button"
-        android:id="@+id/mark_all_option"
-        />
+
     <item
         android:title="@string/button_return"
         android:id="@+id/return_button"

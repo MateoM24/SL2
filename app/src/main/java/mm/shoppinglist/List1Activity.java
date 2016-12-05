@@ -73,14 +73,7 @@ public class List1Activity extends AppCompatActivity {
                 intent=new Intent(this,Popup.class);
                 startActivity(intent);
                 return true;
-            case R.id.edit_option:
-//                if(isSelected){
-//                    intent=new Intent(this,PopupEdit.class);
-//                    intent.putExtra("name",currentButton.getText().toString());
-//                    startActivity(intent);}else{
-//                    Toast.makeText(getBaseContext(),R.string.select_item,Toast.LENGTH_SHORT);
-//                }
-                return true;
+
             case R.id.delete_option:
                 int selectedOnes=0;
                 int countCTV=group.getChildCount();
@@ -101,16 +94,12 @@ public class List1Activity extends AppCompatActivity {
                 Toast.makeText(getBaseContext(),"Usunięto "+selectedOnes+" produktów",Toast.LENGTH_SHORT).show();
 
                 return true;
-            case R.id.delete_all_option:
-//do usuniecia
-//                intent=new Intent(this,PopupRemoveAll.class);
-//                startActivity(intent);
-//                isSelected=false;
-                return true;
+
             case R.id.return_button:
                 intent = new Intent(this,MainActivity.class);
                 startActivity(intent);
                 return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -290,14 +279,19 @@ public class List1Activity extends AppCompatActivity {
         for (int i = 0; i < countCTV; i++) {
             ctv = (CheckBox) group.getChildAt(i);
             if (ctv.isChecked()) {
-                String s = ctv.getText().toString();
-                for (Product p : list) {
+                String s=ctv.getText().toString();
+                for(Product p:list) {
+                    if (p.getName().equals(s)) {
                         new TaskMarkDone(p).execute();
-                        selectedOnes++;
-
+                    selectedOnes++;
+                    }
                 }
             }
         }
         Toast.makeText(getBaseContext(), "Kupiono " + selectedOnes + " produktów", Toast.LENGTH_SHORT).show();
+    }
+    public void goToAct2 (View v){
+        Intent i=new Intent(this,List2Activity.class);
+        startActivity(i);
     }
 }
