@@ -13,12 +13,10 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.RadioGroup;
 import android.widget.Toast;
-
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
 import com.google.api.client.googleapis.services.AbstractGoogleClientRequest;
 import com.google.api.client.googleapis.services.GoogleClientRequestInitializer;
-
 import java.io.IOException;
 import java.util.List;
 
@@ -30,6 +28,7 @@ public class List2Activity extends AppCompatActivity {
     List<Product> list;
     Intent intent;
     RadioGroup group;
+    ProductApi ofyService;
 
     public List<Product> getList() {
         return list;
@@ -44,9 +43,6 @@ public class List2Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list2);
         group=(RadioGroup)findViewById(R.id.radioGroup);
-        //Product xProduct=new Product();
-        //xProduct.setName("testProduct");
-        //new TaskAddOne(xProduct).execute();
     }
     @Override
     protected  void onResume(){
@@ -61,7 +57,7 @@ public class List2Activity extends AppCompatActivity {
     public boolean onCreateOptionsMenu (Menu menu) {
         super.onCreateOptionsMenu(menu);
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu__shopping_list, menu);
+        inflater.inflate(R.menu.menu__shopping_list2, menu);
         return true;
     }
     @Override
@@ -102,28 +98,30 @@ public class List2Activity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-    ///////////////////////////////////////////////////
-    private class TaskGetAll extends AsyncTask<Void,Void,List<Product>>{
 
-        ProductApi ofyService;
+    public void setOfyServ(){
+        if(ofyService==null){
+            ProductApi.Builder builder=new ProductApi.Builder(AndroidHttp.newCompatibleTransport(),new AndroidJsonFactory(),null)
+                    .setRootUrl("http://10.0.2.2:8081/_ah/api/")
+                    .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
+                        @Override
+                        public void initialize(AbstractGoogleClientRequest<?> request) throws IOException {
+                            request.setDisableGZipContent(true);
+                        }
+                    });
+            ofyService=builder.build();
+            Log.d("stepy","TaskGetAll DoInBackground");
+        }
+    }
+
+    private class TaskGetAll extends AsyncTask<Void,Void,List<Product>>{
 
         public TaskGetAll() {
         }
 
         @Override
         protected List<Product> doInBackground(Void... params) {
-            if(ofyService==null){
-                ProductApi.Builder builder=new ProductApi.Builder(AndroidHttp.newCompatibleTransport(),new AndroidJsonFactory(),null)
-                        .setRootUrl("http://10.0.2.2:8081/_ah/api/")
-                        .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
-                            @Override
-                            public void initialize(AbstractGoogleClientRequest<?> request) throws IOException {
-                                request.setDisableGZipContent(true);
-                            }
-                        });
-                ofyService=builder.build();
-                Log.d("stepy","TaskGetAll DoInBackground");
-            }
+           setOfyServ();
             try {
                 return ofyService.list().execute().getItems();
             } catch (IOException e) {
@@ -163,10 +161,9 @@ public class List2Activity extends AppCompatActivity {
 
         }
     }
-    ////////////////////////////////////////////
+
     private class TaskRemoveOne extends AsyncTask<Long,Void,Void>{
 
-        ProductApi ofyService;
         Long id;
 
         public TaskRemoveOne(Long id){
@@ -175,17 +172,7 @@ public class List2Activity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Long... params) {
-            if(ofyService==null){
-                ProductApi.Builder builder=new ProductApi.Builder(AndroidHttp.newCompatibleTransport(),new AndroidJsonFactory(),null)
-                        .setRootUrl("http://10.0.2.2:8081/_ah/api/")
-                        .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
-                            @Override
-                            public void initialize(AbstractGoogleClientRequest<?> request) throws IOException {
-                                request.setDisableGZipContent(true);
-                            }
-                        });
-                ofyService=builder.build();
-            }
+            setOfyServ();
             try {
                 ofyService.remove(id).execute();
             } catch (IOException e) {
@@ -200,41 +187,9 @@ public class List2Activity extends AppCompatActivity {
             onResume();
         }
     }
-    /////////////////////////////////////////////////////////
-    class TaskAddOne extends AsyncTask<Product,Void,Void> {
 
-        ProductApi ofyService;
-        Product p;
-
-        public TaskAddOne(Product p){
-            this.p=p;
-        }
-
-        @Override
-        protected Void doInBackground(Product... params) {
-            if(ofyService==null){
-                ProductApi.Builder builder=new ProductApi.Builder(AndroidHttp.newCompatibleTransport(),new AndroidJsonFactory(),null)
-                        .setRootUrl("http://10.0.2.2:8081/_ah/api/")
-                        .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
-                            @Override
-                            public void initialize(AbstractGoogleClientRequest<?> request) throws IOException {
-                                request.setDisableGZipContent(true);
-                            }
-                        });
-                ofyService=builder.build();
-            }
-            try {
-                ofyService.insert(p).execute();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-    }
-    ///////////////////////////////////////
     class TaskMarkUndone extends AsyncTask<Product,Void,Void> {
 
-        ProductApi ofyService;
         Product p;
 
         public TaskMarkUndone(Product p){
@@ -243,17 +198,7 @@ public class List2Activity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Product... params) {
-            if(ofyService==null){
-                ProductApi.Builder builder=new ProductApi.Builder(AndroidHttp.newCompatibleTransport(),new AndroidJsonFactory(),null)
-                        .setRootUrl("http://10.0.2.2:8081/_ah/api/")
-                        .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
-                            @Override
-                            public void initialize(AbstractGoogleClientRequest<?> request) throws IOException {
-                                request.setDisableGZipContent(true);
-                            }
-                        });
-                ofyService=builder.build();
-            }
+           setOfyServ();
             p.setDone(false);
             try {
                 ofyService.update(p.getId(),p).execute();

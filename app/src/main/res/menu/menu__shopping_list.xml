@@ -14,5 +14,9 @@
         android:title="@string/button_return"
         android:id="@+id/return_button"
         />
+    <item
+        android:title="@string/edit"
+        android:id="@+id/toEdit"
+        />
 
 </menu>

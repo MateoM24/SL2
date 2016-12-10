@@ -38,6 +38,8 @@
     <string name="language">Language en/pl</string>
     <string name="notBought">Mart not purchased yet!</string>
     <string name="backToAct1">Go back to shopping list!</string>
+    <string name="save">Save changes</string>
+    <string name="edit">Edit selected</string>
 
     <string-array name="font_sizes">
         <item>20</item>

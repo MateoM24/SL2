@@ -38,6 +38,8 @@
     <string name="language">Język ang/pol</string>
     <string name="notBought">Oznacz jako niekupione!</string>
     <string name="backToAct1">Do listy z zakupami!</string>
+    <string name="save">Zapisz zmiany</string>
+    <string name="edit">Edytuj zaznaczone</string>
 
     <string-array name="font_sizes">
         <item>20</item>
